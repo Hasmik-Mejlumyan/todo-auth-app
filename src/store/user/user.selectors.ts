@@ -12,3 +12,8 @@ export const selectIsLoading = createSelector(
   usersState,
   (state) => state.isLoading
 )
+
+export const selectAccessToken = createSelector(
+  usersState,
+  (state) => state.accessToken
+);
