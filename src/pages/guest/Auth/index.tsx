@@ -4,9 +4,11 @@ import { useForm } from "react-hook-form";
 import {signInScheme} from "../../../utils/schemes/signInScheme";
 import {signUpScheme} from "../../../utils/schemes/signUpScheme";
 import {ISignInData, ISignUpData} from "../../../types";
-
+import {useAppDispatch} from "../../../store";
+import {signIn} from "../../../store/user";
 
 const Auth = () => {
+  const dispatch = useAppDispatch();
   const [isSignUp, setIsSignUp] = useState(false);
 
   const { register, handleSubmit, unregister } = useForm<ISignInData | ISignUpData>({
@@ -14,7 +16,13 @@ const Auth = () => {
   });
 
   const handleFormSubmit = (data: ISignInData | ISignUpData) => {
-    console.log(data);
+    if (isSignUp) {
+      const sendData = data as ISignUpData;
+      // dispatch(signUp(sendData));
+    } else {
+      const sendData = data as ISignInData;
+      dispatch(signIn(sendData));
+    }
   };
 
   useEffect(() => {
