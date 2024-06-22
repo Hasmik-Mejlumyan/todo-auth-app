@@ -5,6 +5,7 @@ import {useAppSelector} from "./store";
 
 import AuthLayout from "./components/layouts/AuthLayout";
 import Auth from "./pages/guest/Auth";
+import VerifyEmail from "./pages/guest/VerifyEmail";
 
 const App = () => {
   const accessToken = useAppSelector(selectAccessToken);
@@ -21,6 +22,7 @@ const App = () => {
         ) : (
           <Route element={<AuthLayout/>}>
             <Route path="/auth" element={<Auth />}/>
+            <Route path="/verify/:token" element={<VerifyEmail />}/>
             <Route path="*" element={<Navigate to="/auth" replace/>}/>
           </Route>
         )}

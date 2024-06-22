@@ -17,3 +17,18 @@ export const selectAccessToken = createSelector(
   usersState,
   (state) => state.accessToken
 );
+
+export const selectVerificationEmail = createSelector(
+  usersState,
+  (state) => state.verificationEmail
+);
+
+export const selectIsVerificationEmailSent = createSelector(
+  usersState,
+  (state) => state.isVerificationEmailSent
+);
+
+export const selectIsEmailVerified = createSelector(
+  usersState,
+  (state) => state.isEmailVerified
+);
