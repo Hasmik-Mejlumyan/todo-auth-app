@@ -2,15 +2,24 @@ import {todoScheme} from "../../../../utils/schemes/todoScheme";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 import {ITodoData} from "../../../../types";
+import {useAppDispatch, useAppSelector} from "../../../../store";
+import {createTodo, selectIsLoading} from "../../../../store/todo";
 
 const TodoForm = () => {
   const {register, handleSubmit, formState: {errors}} = useForm<ITodoData>({
     resolver: yupResolver(todoScheme),
   })
 
+  const dispatch = useAppDispatch()
+  const isLoading = useAppSelector(selectIsLoading);
+
   const onSubmit = (data: ITodoData) => {
-    console.log(data)
-  }
+    if (isLoading) {
+      return;
+    }
+
+    dispatch(createTodo(data));
+  };
 
   return (
     <div>
@@ -49,7 +58,8 @@ const TodoForm = () => {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            disabled={isLoading}
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline disabled:opacity-50"
           >
             Create
           </button>
