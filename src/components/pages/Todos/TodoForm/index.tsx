@@ -1,0 +1,62 @@
+import {todoScheme} from "../../../../utils/schemes/todoScheme";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useForm} from "react-hook-form";
+import {ITodoData} from "../../../../types";
+
+const TodoForm = () => {
+  const {register, handleSubmit, formState: {errors}} = useForm<ITodoData>({
+    resolver: yupResolver(todoScheme),
+  })
+
+  const onSubmit = (data: ITodoData) => {
+    console.log(data)
+  }
+
+  return (
+    <div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="title"
+          >
+            Title
+          </label>
+          <input
+            {...register("title")}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="title"
+            type="text"
+            placeholder="Title"
+          />
+          <p className="text-red-500 text-xs italic">{errors.title?.message}</p>
+        </div>
+        <div className="mb-4">
+          <label
+            className="block text-gray-700 text-sm font-bold mb-2"
+            htmlFor="description"
+          >
+            Description
+          </label>
+          <input
+            {...register("description")}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            id="description"
+            type="text"
+            placeholder="Description"
+          />
+          <p className="text-red-500 text-xs italic">{errors.description?.message}</p>
+        </div>
+        <div className="flex items-center justify-between">
+          <button
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          >
+            Create
+          </button>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+export default TodoForm;

@@ -7,6 +7,7 @@ import AuthLayout from "./components/layouts/AuthLayout";
 import Auth from "./pages/guest/Auth";
 import VerifyEmail from "./pages/guest/VerifyEmail";
 import Todos from "./pages/user/Todos";
+import UserLayout from "./components/layouts/UserLayout";
 
 const App = () => {
   const accessToken = useAppSelector(selectAccessToken);
@@ -15,11 +16,11 @@ const App = () => {
     <div className="App">
       <Routes>
         {accessToken ? (
-          <>
+          <Route element={<UserLayout/>}>
             <Route path="/" element={<Todos/>}/>
             <Route path="/about" element={<div>About</div>}/>
             <Route path="*" element={<Navigate to="/" replace/>}/>
-          </>
+          </Route>
         ) : (
           <Route element={<AuthLayout/>}>
             <Route path="/auth" element={<Auth />}/>
